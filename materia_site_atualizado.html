@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Materiais de estudo personalizados. Escolha o assunto e solicite seu material.">
+<title>Matéri∆ | Materiais de estudo personalizados</title>
+<style>
+  :root{
+    --bg:#f7f8fa;
+    --surface:#ffffff;
+    --text:#111318;
+    --muted:#69707d;
+    --line:#e7e9ed;
+    --accent:#111318;
+    --soft:#f0f1f4;
+    --radius:22px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.5;
+  }
+  a{text-decoration:none;color:inherit}
+  button{font:inherit}
+
+  .container{width:min(1120px,calc(100% - 40px));margin:auto}
+
+  header{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:rgba(247,248,250,.86);
+    backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(231,233,237,.8);
+  }
+  .nav{
+    height:74px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:800;
+    letter-spacing:-.7px;
+    font-size:20px;
+  }
+  .brand-mark{
+    width:32px;height:32px;border:2px solid var(--text);
+    border-radius:9px;display:grid;place-items:center;
+    position:relative;
+  }
+  .brand-mark:before{
+    content:"";width:12px;height:16px;border:1.7px solid var(--text);
+    border-radius:2px;transform:skewY(-5deg);
+  }
+  nav{display:flex;gap:28px;align-items:center}
+  nav a{font-size:14px;color:#505661}
+  nav a:hover{color:var(--text)}
+  .nav-cta{
+    background:var(--accent);color:white;padding:11px 17px;border-radius:12px;
+    font-weight:700;font-size:14px;
+  }
+
+  .hero{padding:92px 0 78px}
+  .hero-grid{
+    display:grid;grid-template-columns:1.15fr .85fr;gap:70px;align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--soft);border:1px solid var(--line);
+    padding:7px 11px;border-radius:999px;
+    font-size:12px;font-weight:700;color:#4e5560;
+    margin-bottom:22px;
+  }
+  .dot{width:6px;height:6px;background:#111;border-radius:50%}
+  h1{
+    font-size:clamp(44px,6vw,76px);
+    line-height:.98;letter-spacing:-4px;
+    max-width:720px;
+  }
+  .hero p{
+    margin-top:24px;max-width:590px;color:var(--muted);
+    font-size:18px;line-height:1.7;
+  }
+  .hero-actions{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-height:50px;padding:0 20px;border-radius:14px;
+    font-weight:750;font-size:14px;border:1px solid var(--line);
+    transition:.2s ease;
+  }
+  .btn:hover{transform:translateY(-2px)}
+  .btn-dark{background:#111;color:#fff;border-color:#111}
+  .btn-light{background:#fff}
+
+  .hero-card{
+    background:#111;color:white;border-radius:30px;padding:28px;
+    min-height:400px;display:flex;flex-direction:column;justify-content:space-between;
+    box-shadow:0 25px 70px rgba(17,19,24,.15);
+  }
+  .card-top{display:flex;justify-content:space-between;align-items:center}
+  .mini-label{font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:#9ea4ad}
+  .card-number{font-size:13px;color:#8e949e}
+  .paper{
+    background:#f6f6f4;color:#111;border-radius:18px;padding:22px;
+    width:82%;align-self:center;transform:rotate(-2deg);
+    box-shadow:0 16px 35px rgba(0,0,0,.18);
+  }
+  .paper-line{height:7px;background:#d9dadd;border-radius:5px;margin-bottom:10px}
+  .paper-line.short{width:56%}
+  .paper-line.mid{width:78%}
+  .paper-title{font-weight:800;font-size:21px;margin:8px 0 17px}
+  .paper-box{border:1px solid #d8d9dc;border-radius:10px;padding:12px;margin-top:14px}
+  .paper-box strong{font-size:12px}
+  .paper-box span{display:block;color:#6e7279;font-size:11px;margin-top:5px}
+  .card-bottom{display:flex;justify-content:space-between;align-items:end;margin-top:25px}
+  .card-bottom strong{font-size:17px}
+  .card-bottom span{font-size:11px;color:#a5a9b0}
+
+  section{padding:82px 0}
+  .section-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:34px}
+  .section-kicker{font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:#777e88;font-weight:800;margin-bottom:8px}
+  h2{font-size:clamp(30px,4vw,46px);letter-spacing:-2px;line-height:1.05}
+  .section-head p{max-width:440px;color:var(--muted);font-size:15px}
+
+  .subjects{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
+  }
+  .subject{
+    background:#fff;border:1px solid var(--line);border-radius:20px;
+    padding:24px;min-height:160px;transition:.2s ease;
+  }
+  .subject:hover{transform:translateY(-4px);box-shadow:0 16px 35px rgba(17,19,24,.07)}
+  .icon{
+    width:46px;height:46px;border:1.5px solid #bfc3c9;border-radius:14px;
+    display:grid;place-items:center;margin-bottom:30px;color:#17191d;
+  }
+  .icon svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .subject h3{font-size:16px;margin-bottom:5px}
+  .subject p{font-size:12px;color:var(--muted)}
+
+  .process{background:#111;color:#fff}
+  .process .section-kicker{color:#8f959f}
+  .process .section-head p{color:#a8adb5}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .step{border:1px solid #292c31;border-radius:22px;padding:28px;min-height:210px}
+  .step-num{font-size:12px;color:#8e949d;margin-bottom:45px}
+  .step h3{font-size:21px;margin-bottom:9px}
+  .step p{font-size:14px;color:#a8adb5;max-width:280px}
+
+  .request{
+    background:#fff;border:1px solid var(--line);border-radius:30px;
+    padding:48px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;
+  }
+  .request h2{max-width:620px}
+  .request p{margin-top:13px;color:var(--muted);max-width:610px}
+
+
+.carousel-wrap{display:flex;align-items:center;gap:14px}.carousel{width:100%;overflow:hidden}.material-slide{display:none;grid-template-columns:1fr .7fr;gap:30px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:28px;padding:34px;min-height:410px}.material-slide.active{display:grid}.preview-paper{width:min(390px,100%);justify-self:center;background:#f5f5f3;border:1px solid #dddfe2;border-radius:16px;padding:27px;box-shadow:0 20px 45px rgba(17,19,24,.1);transform:rotate(-1.5deg)}.paper-kicker{font-size:10px;font-weight:800;letter-spacing:1.8px;color:#777e88;margin-bottom:12px}.preview-paper h3{font-size:28px;letter-spacing:-1px;margin-bottom:16px}.preview-rule{height:1px;background:#d7d9dc;margin-bottom:16px}.preview-text{font-size:12px;color:#696f78;line-height:1.6}.preview-box{border:1px solid #d9dbde;border-radius:10px;padding:12px;margin-top:13px}.preview-box strong{font-size:12px;display:block}.preview-box span{font-size:10px;color:#777d86;display:block;margin-top:4px}.material-info span{font-size:11px;color:#858b94;display:block;margin-bottom:35px}.material-info strong{display:block;font-size:28px;letter-spacing:-1px;line-height:1.1;margin-bottom:9px}.material-info small{font-size:13px;color:var(--muted)}.carousel-btn{flex:0 0 42px;width:42px;height:42px;border:1px solid var(--line);background:#fff;border-radius:50%;cursor:pointer;font-size:27px;line-height:1;color:#222;display:grid;place-items:center}.carousel-btn:hover{background:#111;color:#fff;border-color:#111}.carousel-dots{display:flex;justify-content:center;gap:7px;margin-top:18px}.carousel-dots .dot{width:7px;height:7px;border:0;border-radius:50%;background:#c9ccd1;padding:0;cursor:pointer}.carousel-dots .dot.active{background:#111;width:22px;border-radius:10px}.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.price-card{position:relative;background:#fff;border:1px solid var(--line);border-radius:22px;padding:28px;min-height:285px}.price-card.featured{background:#111;color:#fff;border-color:#111}.featured-tag{position:absolute;right:18px;top:18px;font-size:9px;text-transform:uppercase;letter-spacing:1px;border:1px solid #3b3e44;color:#c4c7cd;border-radius:999px;padding:6px 8px}.price-icon{width:44px;height:44px;border:1px solid #cfd2d7;border-radius:13px;display:grid;place-items:center;margin-bottom:25px;font-size:21px}.featured .price-icon{border-color:#3b3e44}.price-label{font-size:13px;font-weight:700;color:#777d86;margin-bottom:6px}.featured .price-label{color:#aeb2ba}.price{font-size:40px;line-height:1;font-weight:850;letter-spacing:-2px}.price span{font-size:14px;letter-spacing:0;margin-right:3px}.price-card p{font-size:14px;margin-top:13px;font-weight:650}.price-note{font-size:11px;color:#858b94;margin-top:11px;line-height:1.5}.featured .price-note{color:#aeb2ba}.footer-links{display:none}
+  footer{padding:32px 0;border-top:1px solid var(--line)}
+  .footer-inner{display:flex;justify-content:space-between;align-items:center;gap:20px}
+  .footer-inner p{font-size:12px;color:#858b94}
+  .footer-links{display:flex;gap:20px;font-size:12px;color:#666c75}
+
+  @media(max-width:850px){
+    nav a:not(.nav-cta){display:none}
+    .hero{padding:60px 0 50px}
+    .hero-grid{grid-template-columns:1fr;gap:45px}
+    h1{letter-spacing:-2.8px}
+    .hero-card{min-height:350px}
+    .subjects{grid-template-columns:repeat(2,1fr)}
+    .steps{grid-template-columns:1fr}
+    .request{grid-template-columns:1fr;padding:32px}
+    .material-slide{grid-template-columns:1fr;padding:24px;gap:22px}.preview-paper{width:min(330px,100%)}.material-info{text-align:center}.material-info span{margin-bottom:14px}.material-info strong{font-size:22px}.carousel-btn{width:36px;height:36px;flex-basis:36px;font-size:23px}.pricing-grid{grid-template-columns:1fr}
+  }
+  @media(max-width:520px){
+    .container{width:min(100% - 28px,1120px)}
+    .nav{height:66px}
+    .brand{font-size:18px}
+    .nav-cta{padding:9px 12px}
+    .hero{padding-top:45px}
+    h1{font-size:48px}
+    .hero p{font-size:16px}
+    .hero-card{padding:20px;border-radius:24px}
+    .paper{width:90%}
+    section{padding:62px 0}
+    .section-head{display:block}
+    .section-head p{margin-top:13px}
+    .subjects{grid-template-columns:1fr 1fr;gap:10px}
+    .subject{padding:18px;min-height:145px}
+    .icon{margin-bottom:23px;width:42px;height:42px}
+    .request{border-radius:22px}
+    .footer-inner{display:block}
+    .footer-links{margin-top:12px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="#" class="brand">
+      <span class="brand-mark"></span>
+      Matéri∆
+    </a>
+    <nav>
+      <a href="#materias">Matérias</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a class="nav-cta" href="#pedir">Pedir resumo</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow"><span class="dot"></span> Material personalizado para você</span>
+        <h1>Seu resumo.<br>Do seu jeito.</h1>
+        <p>
+          Você manda a matéria, o assunto e o que precisa estudar.
+          Nós organizamos tudo em um material claro, direto e fácil de revisar.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-dark" href="#pedir">Solicitar meu resumo</a>
+          <a class="btn btn-light" href="#materias">Ver exemplos</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="card-top">
+          <span class="mini-label">Prévia do material</span>
+          <span class="card-number">01 / 03</span>
+        </div>
+
+        <div class="paper">
+          <div class="paper-line short"></div>
+          <div class="paper-title">Leis de Newton</div>
+          <div class="paper-line mid"></div>
+          <div class="paper-line"></div>
+          <div class="paper-box">
+            <strong>2ª Lei — F = m · a</strong>
+            <span>Força, massa e aceleração.</span>
+          </div>
+          <div class="paper-box">
+            <strong>Exemplo prático</strong>
+            <span>Explicação simples + exercício.</span>
+          </div>
+        </div>
+
+        <div class="card-bottom">
+          <strong>Resumo + exercícios</strong>
+          <span>PDF organizado</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="materias">
+<div class="container">
+<div class="section-head"><div><div class="section-kicker">Exemplos de materiais</div><h2>Veja como seu<br>material pode ficar.</h2></div><p>Estes são apenas exemplos visuais. O conteúdo é montado de acordo com o assunto que você solicitar.</p></div>
+<div class="carousel-wrap"><button class="carousel-btn prev" aria-label="Anterior">‹</button><div class="carousel" id="materialCarousel">
+<article class="material-slide active"><div class="preview-paper"><div class="paper-kicker">FÍSICA</div><h3>Leis de Newton</h3><div class="preview-rule"></div><p class="preview-text">Resumo dos conceitos principais, fórmulas e exemplos práticos.</p><div class="preview-box"><strong>2ª Lei — F = m · a</strong><span>Força, massa e aceleração.</span></div><div class="preview-box"><strong>Exemplo</strong><span>Aplicação passo a passo.</span></div></div><div class="material-info"><span>01 / 04</span><strong>Leis de Newton</strong><small>Resumo organizado + exemplos</small></div></article>
+<article class="material-slide "><div class="preview-paper"><div class="paper-kicker">MATEMÁTICA</div><h3>Equação do 2º Grau</h3><div class="preview-rule"></div><p class="preview-text">Conceitos, fórmula de Bhaskara e resolução passo a passo.</p><div class="preview-box"><strong>Δ = b² − 4ac</strong><span>Como encontrar o discriminante.</span></div><div class="preview-box"><strong>Exemplo</strong><span>Resolução explicada.</span></div></div><div class="material-info"><span>02 / 04</span><strong>Equação do 2º Grau</strong><small>Resumo organizado + exemplos</small></div></article>
+<article class="material-slide "><div class="preview-paper"><div class="paper-kicker">QUÍMICA</div><h3>Ligações Químicas</h3><div class="preview-rule"></div><p class="preview-text">Entenda os principais tipos de ligação e suas características.</p><div class="preview-box"><strong>Iônica × Covalente</strong><span>Diferenças explicadas de forma simples.</span></div><div class="preview-box"><strong>Resumo visual</strong><span>Conceitos essenciais para revisar.</span></div></div><div class="material-info"><span>03 / 04</span><strong>Ligações Químicas</strong><small>Resumo organizado + exemplos</small></div></article>
+<article class="material-slide "><div class="preview-paper"><div class="paper-kicker">BIOLOGIA</div><h3>Genética</h3><div class="preview-rule"></div><p class="preview-text">Conceitos fundamentais, termos importantes e exemplos.</p><div class="preview-box"><strong>Genótipo × Fenótipo</strong><span>Diferenças e exemplos.</span></div><div class="preview-box"><strong>Revisão</strong><span>Os pontos que mais importam.</span></div></div><div class="material-info"><span>04 / 04</span><strong>Genética</strong><small>Resumo organizado + exemplos</small></div></article>
+</div><button class="carousel-btn next" aria-label="Próximo">›</button></div>
+<div class="carousel-dots" id="carouselDots"><button class="dot active" aria-label="Exemplo 1"></button><button class="dot " aria-label="Exemplo 2"></button><button class="dot " aria-label="Exemplo 3"></button><button class="dot " aria-label="Exemplo 4"></button></div>
+</div></section>
+
+  <section id="precos"><div class="container"><div class="section-head"><div><div class="section-kicker">Preços base</div><h2>Você escolhe<br>o que precisa.</h2></div><p>Valores simples e transparentes. O preço final pode variar conforme o conteúdo e a complexidade do pedido.</p></div><div class="pricing-grid">
+<div class="price-card">
+  <div class="price-icon">▤</div>
+  <div class="price-label">Revisão rápida</div>
+  <div class="price"><span>R$</span>5,90</div>
+  <p>Resumo curto</p>
+  <div class="price-note">Resumo direto e objetivo. Ideal para revisões rápidas.</div>
+</div>
+<div class="price-card">
+  <div class="price-icon">▤</div>
+  <div class="price-label">Mais completo</div>
+  <div class="price"><span>R$</span>7,90</div>
+  <p>Resumo aprofundado</p>
+  <div class="price-note">Mais de 10 páginas, com mais detalhes, explicações e exemplos.</div>
+</div>
+<div class="price-card">
+  <div class="price-icon">☷</div>
+  <div class="price-label">Prática</div>
+  <div class="price"><span>R$</span>6,90</div>
+  <p>10 questões bem elaboradas</p>
+  <div class="price-note">+ R$ 3,00 a cada 10 questões adicionais.</div>
+</div>
+<div class="price-card featured">
+  <div class="featured-tag">Mais completo</div>
+  <div class="price-icon">▥</div>
+  <div class="price-label">Combo</div>
+  <div class="price"><span>R$</span>11,90</div>
+  <p>Resumo + 10 questões</p>
+  <div class="price-note">Uma opção completa para revisar e praticar.</div>
+</div>
+</div></div></section><section class="process" id="como-funciona">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Processo simples</div>
+          <h2>Você pede.<br>Nós preparamos.</h2>
+        </div>
+        <p>Sem cadastro complicado e sem catálogo infinito. O pedido é combinado diretamente pelo celular.</p>
+      </div>
+
+      <div class="steps">
+        <article class="step">
+          <div class="step-num">01</div>
+          <h3>Conte o que precisa</h3>
+          <p>Envie a matéria, o assunto, o nível de ensino e, se quiser, uma foto do conteúdo.</p>
+        </article>
+        <article class="step">
+          <div class="step-num">02</div>
+          <h3>Combinamos os detalhes</h3>
+          <p>Você recebe as informações sobre o material e combina o valor antes da produção.</p>
+        </article>
+        <article class="step">
+          <div class="step-num">03</div>
+          <h3>Receba seu material</h3>
+          <p>O resumo é organizado em um PDF pensado para facilitar sua revisão.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="pedir">
+    <div class="container">
+      <div class="request">
+        <div>
+          <div class="section-kicker">Comece agora</div>
+          <h2>Precisa estudar algum assunto?</h2>
+          <p>
+            Chame pelo celular e conte exatamente o que você precisa.
+            O atendimento é feito de forma personalizada.
+          </p>
+        </div>
+        <a class="btn btn-dark" href="https://wa.me/5511913556914?text=Oi!%20Quero%20pedir%20um%20resumo.%20Como%20funciona%3F" target="_blank" rel="noopener">
+          Solicitar pelo WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <p>© 2026 Matéri∆ • Materiais de estudo personalizados.</p>
+  </div>
+</footer>
+
+<script>(function(){const s=[...document.querySelectorAll('.material-slide')],d=[...document.querySelectorAll('#carouselDots .dot')];let i=0;function show(n){i=(n+s.length)%s.length;s.forEach((x,j)=>x.classList.toggle('active',j===i));d.forEach((x,j)=>x.classList.toggle('active',j===i))}document.querySelector('.prev').onclick=()=>show(i-1);document.querySelector('.next').onclick=()=>show(i+1);d.forEach((x,j)=>x.onclick=()=>show(j));})();</script></body>
+</html>
